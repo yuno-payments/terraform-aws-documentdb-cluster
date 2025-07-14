@@ -65,6 +65,12 @@ resource "random_password" "password" {
   special = false
 }
 
+resource "aws_docdb_global_cluster" "default" {
+  global_cluster_identifier = "${module.this.id}-global"
+  engine                          = var.engine
+  engine_version                  = var.engine_version
+}
+
 resource "aws_docdb_cluster" "default" {
   count              = local.enabled ? 1 : 0
   cluster_identifier = module.this.id
@@ -75,6 +81,7 @@ resource "aws_docdb_cluster" "default" {
   backup_retention_period         = var.retention_period
   preferred_backup_window         = var.preferred_backup_window
   preferred_maintenance_window    = var.preferred_maintenance_window
+  global_cluster_identifier       = aws_docdb_global_cluster.default[*].global_cluster_identifier
   final_snapshot_identifier       = lower(module.this.id)
   skip_final_snapshot             = var.skip_final_snapshot
   deletion_protection             = var.deletion_protection

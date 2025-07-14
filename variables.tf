@@ -250,3 +250,39 @@ variable "allow_major_version_upgrade" {
   default     = false
 }
 
+variable "enable_global_cluster" {
+  type        = bool
+  description = "Set to true to enable DocumentDB Global Cluster support"
+  default     = false
+}
+
+variable "is_primary_cluster" {
+  type        = bool
+  description = "Set to true if this cluster should be the primary cluster when creating a new global cluster"
+  default     = true
+}
+
+variable "global_cluster_identifier" {
+  type        = string
+  description = "The global cluster identifier specified on `aws_docdb_global_cluster`"
+  default     = ""
+}
+
+variable "source_db_cluster_identifier" {
+  type        = string
+  description = "The Amazon Resource Name (ARN) to use as the primary DB Cluster of the Global Cluster on creation"
+  default     = ""
+}
+
+variable "global_cluster_database_name" {
+  type        = string
+  description = "Name for an automatically created database on global cluster creation"
+  default     = ""
+}
+
+variable "force_destroy_global_cluster" {
+  type        = bool
+  description = "Enable to remove DB Cluster members from Global Cluster on destroy"
+  default     = false
+}
+
