@@ -264,7 +264,7 @@ variable "is_primary_cluster" {
 
 variable "global_cluster_identifier" {
   type        = string
-  description = "The global cluster identifier specified on `aws_docdb_global_cluster`"
+  description = "The global cluster identifier to join when member_global_cluster is true"
   default     = ""
 }
 
@@ -283,6 +283,12 @@ variable "global_cluster_database_name" {
 variable "force_destroy_global_cluster" {
   type        = bool
   description = "Enable to remove DB Cluster members from Global Cluster on destroy"
+  default     = false
+}
+
+variable "member_global_cluster" {
+  type        = bool
+  description = "Set to true if this cluster should be a member of an existing global cluster (when false and enable_global_cluster is true, a new global cluster will be created)"
   default     = false
 }
 
